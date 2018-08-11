@@ -4,6 +4,37 @@
       tools:context="com.danielmalone.dansecommerce.MainActivity">
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings2"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:orderInCategory="100"
+        android:title="Jeans"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings3"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:orderInCategory="100"
+        android:title="Shorts"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings4"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:orderInCategory="100"
+        android:title="Socks"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings5"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings6"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
