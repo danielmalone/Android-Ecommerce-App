@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log.d
 import android.view.MenuItem
 import com.danielmalone.dansecommerce.model.Product
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.actionHome -> d("daniel", "Going home!")
+                R.id.actionJeans -> d("daniel", "jeans was pressed!")
+                R.id.actionShorts -> d("daniel", "shorts was pressed!")
+            }
             it.isChecked = true
             drawerLayout.closeDrawers()
             true

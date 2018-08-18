@@ -6,21 +6,21 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/action_settings"
+            android:id="@+id/actionHome"
             android:icon="@drawable/ic_monetization_on_black_24dp"
             android:orderInCategory="100"
-            android:title="@string/action_settings"
+            android:title="Home"
             app:showAsAction="never"/>
-        
+
         <item
-            android:id="@+id/action_settings2"
+            android:id="@+id/actionJeans"
             android:icon="@drawable/ic_monetization_on_black_24dp"
             android:orderInCategory="100"
             android:title="Jeans"
             app:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_settings3"
+            android:id="@+id/actionShorts"
             android:icon="@drawable/ic_monetization_on_black_24dp"
             android:orderInCategory="100"
             android:title="Shorts"
