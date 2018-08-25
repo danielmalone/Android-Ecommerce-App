@@ -21,8 +21,15 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionHome -> d("daniel", "Going home!")
-                R.id.actionJeans -> d("daniel", "jeans was pressed!")
-                R.id.actionShorts -> d("daniel", "shorts was pressed!")
+                R.id.actionJeans -> {
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, JeansFragment())
+                            .commit()
+                    d("daniel", "jeans was pressed!")
+                }
+                R.id.actionShorts -> {
+                    d("daniel", "shorts was pressed!")
+                }
             }
             it.isChecked = true
             drawerLayout.closeDrawers()
