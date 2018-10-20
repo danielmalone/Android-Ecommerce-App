@@ -3,7 +3,6 @@ package com.danielmalone.dansecommerce
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,12 +22,12 @@ class MainFragment : Fragment() {
             val json = URL("https://finepointmobile.com/data/products.json").readText()
 
             uiThread {
-                d("daniel", "json: $json")
                 val products = Gson().fromJson(json, Array<Product>::class.java).toList()
 
                 root.recycler_view.apply {
                     layoutManager = GridLayoutManager(activity, 2)
                     adapter = ProductsAdapter(products)
+                    root.progressBar.visibility = View.GONE
                 }
             }
         }
