@@ -3,6 +3,8 @@ package com.danielmalone.dansecommerce
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +32,13 @@ class MainFragment : Fragment() {
                     root.progressBar.visibility = View.GONE
                 }
             }
+        }
+
+        val categories = listOf("Jeans", "Socks", "Suits", "Skirts", "Dresses", "Jeans", "Socks", "Pants", "Jackets", "Daniel")
+
+        root.categoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            adapter = CategoriesAdapter(categories)
         }
 
         return root
