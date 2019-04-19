@@ -1,8 +1,8 @@
 package com.danielmalone.dansecommerce
 
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log.d
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*

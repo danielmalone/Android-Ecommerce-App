@@ -1,7 +1,7 @@
 package com.danielmalone.dansecommerce
 
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.danielmalone.dansecommerce.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_row.view.*
 
-class ProductsAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(private val products: List<Product>) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ProductsAdapter.ViewHolder, position: Int) {
         val product = products[position]
@@ -40,7 +40,7 @@ class ProductsAdapter(private val products: List<Product>) : RecyclerView.Adapte
 
     override fun getItemCount() = products.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
         val price: TextView = itemView.findViewById(R.id.price)

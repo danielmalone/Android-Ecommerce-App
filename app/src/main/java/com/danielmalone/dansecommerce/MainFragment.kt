@@ -1,10 +1,10 @@
 package com.danielmalone.dansecommerce
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.URL
 
-class MainFragment : Fragment() {
+class MainFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
                 val products = Gson().fromJson(json, Array<Product>::class.java).toList()
 
                 root.recycler_view.apply {
-                    layoutManager = GridLayoutManager(activity, 2)
+                    layoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
                     adapter = ProductsAdapter(products)
                     root.progressBar.visibility = View.GONE
                 }
@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
         val categories = listOf("Jeans", "Socks", "Suits", "Skirts", "Dresses", "Jeans", "Socks", "Pants", "Jackets", "Daniel")
 
         root.categoriesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity, androidx.recyclerview.widget.RecyclerView.HORIZONTAL, false)
             adapter = CategoriesAdapter(categories)
         }
 
