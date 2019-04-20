@@ -37,4 +37,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "org.jetbrains.anko:anko:0.10.7"
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "androidx.room:room-runtime:2.0.0"
+    kapt "androidx.room:room-compiler:2.0.0"
 }

@@ -1,12 +1,17 @@
 package com.danielmalone.dansecommerce
 
 import android.os.Bundle
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log.d
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.room.Room
+import com.danielmalone.dansecommerce.database.AppDatabase
+import com.danielmalone.dansecommerce.database.ProductFromDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +19,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        doAsync {
+
+            val db = Room.databaseBuilder(
+                    applicationContext,
+                    AppDatabase::class.java, "database-name"
+            ).build()
+
+            db.productDao().insertAll(ProductFromDatabase(null, "Socks - one dozen", 1.99))
+            val products = db.productDao().getAll()
+
+            uiThread {
+
+                d("daniel", "products size? ${products.size} ${products[0].title}")
+
+            }
+        }
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, MainFragment())
