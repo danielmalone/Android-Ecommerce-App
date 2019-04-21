@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.actionShorts -> {
                     d("daniel", "shorts was pressed!")
                 }
+                R.id.actionAdmin -> {
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, AdminFragment())
+                            .commit()
+                }
             }
             it.isChecked = true
             drawerLayout.closeDrawers()
