@@ -1,5 +1,6 @@
 package com.danielmalone.dansecommerce
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.Menu
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.room.Room
+import com.danielmalone.dansecommerce.cart.CartActivity
 import com.danielmalone.dansecommerce.database.AppDatabase
 import com.danielmalone.dansecommerce.database.ProductFromDatabase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -76,6 +78,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.actionCart) {
+            d("daniel", "going to cart")
+            startActivity(Intent(this, CartActivity::class.java))
             return true
         }
         drawerLayout.openDrawer(GravityCompat.START)
