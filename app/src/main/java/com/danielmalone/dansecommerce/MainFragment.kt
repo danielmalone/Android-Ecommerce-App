@@ -1,10 +1,13 @@
 package com.danielmalone.dansecommerce
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.danielmalone.dansecommerce.repos.ProductsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,41 +40,19 @@ class MainFragment : androidx.fragment.app.Fragment() {
                     d("daniel", "success :)")
                     recycler_view.apply {
                         layoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-                        adapter = ProductsAdapter(it)
+
+                        adapter = ProductsAdapter(it) { extraTitle, extraImageUrl, photoView ->
+                            val intent = Intent(activity, ProductDetails::class.java)
+                            intent.putExtra("title", extraTitle)
+                            intent.putExtra("photo_url", extraImageUrl)
+                            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity as AppCompatActivity, photoView, "photoToAnimate")
+                            startActivity(intent, options.toBundle())
+                        }
+
                     }
                     progressBar.visibility = View.GONE
                 }, {
                     d("daniel", " error :( ${it.message}")
                 })
-
-//        searchButton.setOnClickListener {
-//
-//            doAsync {
-//
-//                val db = Room.databaseBuilder(
-//                        activity!!.applicationContext,
-//                        AppDatabase::class.java, "database-name"
-//                ).build()
-//
-//                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
-//
-//                val products = productsFromDatabase.map {
-//                    Product(
-//                            it.title,
-//                            "https://finepointmobile.com/data/jeans2.jpg",
-//                            it.price,
-//                            true
-//                    )
-//                }
-//
-//                uiThread {
-//                    recycler_view.apply {
-//                        layoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-//                        adapter = ProductsAdapter(products)
-//                    }
-//                    progressBar.visibility = View.GONE
-//                }
-//            }
-//        }
     }
 }

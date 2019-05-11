@@ -1,7 +1,5 @@
 package com.danielmalone.dansecommerce
 
-import android.content.Intent
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,10 @@ import com.danielmalone.dansecommerce.model.Product
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_row.view.*
 
-class ProductsAdapter(private val products: List<Product>) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(
+        private val products: List<Product>,
+        private val onClickProduct: (title: String, photoUrl: String, photoView: View) -> Unit
+) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ProductsAdapter.ViewHolder, position: Int) {
         val product = products[position]
@@ -24,18 +25,19 @@ class ProductsAdapter(private val products: List<Product>) : androidx.recyclervi
         } else {
             holder.saleImageView.visibility = View.GONE
         }
+
+
+
+        holder.image.setOnClickListener {
+            onClickProduct.invoke(product.title, product.photoUrl, holder.image)
+        }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
-        val holder = ViewHolder(view)
-        view.setOnClickListener {
-            val intent = Intent(parent.context, ProductDetails::class.java)
-            intent.putExtra("title", products[holder.adapterPosition].title)
-            intent.putExtra("photo_url", products[holder.adapterPosition].photoUrl)
-            parent.context.startActivity(intent)
-        }
-        return holder
+        return ViewHolder(view)
     }
 
     override fun getItemCount() = products.size
