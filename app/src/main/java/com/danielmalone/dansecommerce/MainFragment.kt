@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
-import androidx.recyclerview.widget.RecyclerView
+import com.danielmalone.dansecommerce.model.Product
 import com.danielmalone.dansecommerce.repos.ProductsRepository
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -34,6 +35,16 @@ class MainFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val productsRepository = ProductsRepository().getAllProducts()
+        loadRecyclerView(productsRepository)
+
+        searchButton.setOnClickListener {
+            loadRecyclerView(ProductsRepository().searchForProducts(searchTerm.text.toString()))
+        }
+
+    }
+
+    fun loadRecyclerView(productsRepository: Single<List<Product>>) {
+        val single = productsRepository
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
