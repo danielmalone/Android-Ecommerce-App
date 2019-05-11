@@ -3,7 +3,10 @@ package com.danielmalone.dansecommerce
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.danielmalone.dansecommerce.repos.ProductsRepository
 import com.squareup.picasso.Picasso
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.product_details.*
 
 class ProductDetails : AppCompatActivity() {
@@ -13,10 +16,15 @@ class ProductDetails : AppCompatActivity() {
         setContentView(R.layout.product_details)
 
         val title = intent.getStringExtra("title")
-        val photoUrl = intent.getStringExtra("photo_url")
 
-        product_name.text = title
-        Picasso.get().load(photoUrl).into(photo)
+        val product = ProductsRepository().getProductByName(title)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    product_name.text = it.title
+                    Picasso.get().load(it.photoUrl).into(photo)
+                    thePriceOfProduct.text = "$${it.price}"
+                }, {})
 
         availability.setOnClickListener {
             AlertDialog.Builder(this)
