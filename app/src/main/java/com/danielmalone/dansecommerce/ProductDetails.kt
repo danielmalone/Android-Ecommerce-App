@@ -17,23 +17,27 @@ class ProductDetails : AppCompatActivity() {
 
         val title = intent.getStringExtra("title")
 
+        addToCartButton.setOnClickListener {
+            
+        }
+
         val product = ProductsRepository().getProductByName(title)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    product_name.text = it.title
-                    Picasso.get().load(it.photoUrl).into(photo)
-                    thePriceOfProduct.text = "$${it.price}"
-                }, {})
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                product_name.text = it.title
+                Picasso.get().load(it.photoUrl).into(photo)
+                thePriceOfProduct.text = "$${it.price}"
+            }, {})
 
         availability.setOnClickListener {
             AlertDialog.Builder(this)
-                    .setMessage("Hey, $title is in stock!")
-                    .setPositiveButton("OK") { p0, p1 ->
+                .setMessage("Hey, $title is in stock!")
+                .setPositiveButton("OK") { p0, p1 ->
 
-                    }
-                    .create()
-                    .show()
+                }
+                .create()
+                .show()
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.room.Room
 import com.danielmalone.dansecommerce.cart.CartActivity
 import com.danielmalone.dansecommerce.database.AppDatabase
+import com.danielmalone.dansecommerce.database.CartModel
 import com.danielmalone.dansecommerce.database.ProductFromDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main.*
@@ -26,43 +27,52 @@ class MainActivity : AppCompatActivity() {
         doAsync {
 
             val db = Room.databaseBuilder(
-                    applicationContext,
-                    AppDatabase::class.java, "database-name"
+                applicationContext,
+                AppDatabase::class.java, "database-name"
             ).build()
 
             db.productDao().insertAll(ProductFromDatabase(null, "Socks - one dozen", 1.99))
             val products = db.productDao().getAll()
 
+            val cart = db.cartDao()
+            cart.insertAll(CartModel(null, "Test product", 12.99, 3))
+
+            val allCartItems = cart.getAll()
+
             uiThread {
 
                 d("daniel", "products size? ${products.size} ${products[0].title}")
+
+                allCartItems.forEach {
+                    d("daniel", "item in cart: ${it.title} ${it.price}")
+                }
 
             }
         }
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, MainFragment())
-                .commit()
+            .replace(R.id.frameLayout, MainFragment())
+            .commit()
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionHome -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, MainFragment())
-                            .commit()
+                        .replace(R.id.frameLayout, MainFragment())
+                        .commit()
                 }
                 R.id.actionJeans -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, JeansFragment())
-                            .commit()
+                        .replace(R.id.frameLayout, JeansFragment())
+                        .commit()
                 }
                 R.id.actionShorts -> {
                     d("daniel", "shorts was pressed!")
                 }
                 R.id.actionAdmin -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, AdminFragment())
-                            .commit()
+                        .replace(R.id.frameLayout, AdminFragment())
+                        .commit()
                 }
             }
             it.isChecked = true
