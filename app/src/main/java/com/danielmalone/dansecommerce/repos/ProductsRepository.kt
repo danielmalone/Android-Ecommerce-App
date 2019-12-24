@@ -28,11 +28,8 @@ class ProductsRepository {
         }
     }
 
-    fun searchForProducts(term: String): Single<List<Product>> {
-        return Single.create<List<Product>> {
-            val filteredProducts = fetchProducts().filter { it.title.contains(term, true) }
-            it.onSuccess(filteredProducts)
-        }
+    suspend fun searchForProducts(term: String): List<Product> {
+        return fetchAllProductsRetrofit().filter { it.title.contains(term, true) }
     }
 
     fun getProductByName(name: String): Single<Product> {
